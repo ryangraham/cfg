@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: ryangraham/csv:0.0.1
+      - image: ryangraham/cfg:0.0.1
     steps:
       - checkout
       - run:
@@ -11,4 +11,4 @@ jobs:
           command: make install
       - run:
           name: Run an example
-          command: cd examples/dedupe && make run
+          command: make example
