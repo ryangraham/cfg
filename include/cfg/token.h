@@ -7,7 +7,8 @@
   X(END)             \
   X(EQUAL)           \
   X(LEFTBRACKET)     \
-  X(RIGHTBRACKET)
+  X(RIGHTBRACKET)    \
+  X(VALUE)
 
 #define AS_ENUM(e) e,
 

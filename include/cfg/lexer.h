@@ -23,7 +23,7 @@ struct lexer {
 
     while (token.type != token_type::END) {
       token = next();
-      results.push_back(next());
+      results.push_back(token);
     }
 
     return results;
@@ -36,16 +36,29 @@ struct lexer {
   token next() {
     while (is_space(peek())) get();
 
-    switch (peek()) {
-      case '\0':
-        return atom(token_type::END);
+    char c = peek();
+    if (c == '\0') return atom(token_type::END);
+
+    if (in_greedy_context) return value();
+
+    switch (c) {
       case '[':
         return atom(token_type::LEFTBRACKET);
       case ']':
         return atom(token_type::RIGHTBRACKET);
+      case '=':
+        in_greedy_context = true;
+        return atom(token_type::EQUAL);
       default:
         return identifier();
     }
+  }
+
+  token value() {
+    const char* start = begin;
+    get();
+    while (is_value(peek())) get();
+    return token(token_type::VALUE, start, begin);
   }
 
   token atom(token_type type) { return token(type, begin++, 1); }
@@ -69,14 +82,23 @@ struct lexer {
   }
 
   bool is_identifier(char c) {
-    switch (c) {
-      case '\0':
-        return false;
-      default:
-        return true;
-    }
+    if (c == '\0') return false;
+
+    static constexpr std::string_view valid =
+        "0123456789"
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        "abcdefghijklmnopqrstuvwxyz"
+        "_-";  // -_
+    return valid.find(c) != std::string::npos;
   }
 
+  bool is_value(char c) {
+    if (c == '\0') return false;
+
+    return true;
+  }
+
+  bool in_greedy_context = false;
   const char* begin = nullptr;
 };
 
