@@ -16,15 +16,16 @@ using namespace ranges;
 
 namespace cfg {
 
-int read(std::istream& sin, ctree& root) {
+int read(std::istream& sin, ctree& ctree) {
   auto lex = [](const std::string& s) {
     lexer lexer(s);
     return lexer.tokens();
   };
   auto tokenized_lines = getlines(sin) | views::transform(lex);
 
+  parser parser(ctree);
   for (auto&& line : tokenized_lines) {
-    parse(line, root);
+    parser.parse(line);
   }
   return 0;
 }
