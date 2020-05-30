@@ -18,7 +18,7 @@ namespace cfg {
 
 constexpr char const* token_type_names[] = {ENUM_LIST(AS_STRING)};
 enum struct token_type { ENUM_LIST(AS_ENUM) };
-char const* token_type_name(token_type const val) {
+inline char const* token_type_name(token_type const val) {
   return token_type_names[static_cast<int>(val)];
 }
 

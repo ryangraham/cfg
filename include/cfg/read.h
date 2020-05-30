@@ -16,7 +16,7 @@ using namespace ranges;
 
 namespace cfg {
 
-int read(std::istream& sin, ctree& ctree) {
+inline int read(std::istream& sin, ctree& ctree) {
   auto lex = [](const std::string& s) {
     lexer lexer(s);
     return lexer.tokens();
@@ -30,7 +30,7 @@ int read(std::istream& sin, ctree& ctree) {
   return 0;
 }
 
-int read_ini(const std::string& path, ctree& ctree) {
+inline int read_ini(const std::string& path, ctree& ctree) {
   std::fstream ifs(path);
   if (!ifs) return 1;
 
