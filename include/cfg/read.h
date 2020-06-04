@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "ctree.h"
+#include "doctest/doctest.h"
 #include "lexer.h"
 #include "parser.h"
 
@@ -38,3 +39,18 @@ inline int read_ini(const std::string& path, ctree& ctree) {
 }
 
 }  // namespace cfg
+
+TEST_CASE("read") {
+  std::string config =
+      "[Okta]\n"
+      "organization=scooterz\n"
+      "username=ryang\n"
+      "enable_keychain=true\n";
+  std::istringstream input(config);
+  cfg::ctree ctree;
+  cfg::read(input, ctree);
+
+  auto username = ctree["Okta"]["username"];
+
+  CHECK(username == "ryang");
+}

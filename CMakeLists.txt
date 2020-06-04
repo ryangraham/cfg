@@ -1,13 +1,28 @@
 # Build
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.11)
 
 project(cfg VERSION 0.0.1 LANGUAGES CXX)
 
 include(GNUInstallDirs)
 
+include(FetchContent)
+
+include_directories(thirdparty)
+
 add_library(${PROJECT_NAME} INTERFACE)
 
 target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
+
+FetchContent_Declare(
+    rangev3
+    URL "https://github.com/ericniebler/range-v3/archive/0.10.0.tar.gz"
+    URL_HASH MD5=2a68ca385f70d62398365cc2923d0573
+)
+FetchContent_GetProperties(rangev3)
+if(NOT rangev3_POPULATED)
+    FetchContent_Populate(rangev3)
+endif()
+include_directories(${rangev3_SOURCE_DIR}/include)
 
 target_include_directories(
     ${PROJECT_NAME}
@@ -15,6 +30,12 @@ target_include_directories(
     $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
+
+include_directories(include)
+add_executable(test src/test_main.cc)
+set_target_properties(test PROPERTIES
+            CXX_STANDARD 17
+            )
 
 # Install
 install(TARGETS ${PROJECT_NAME}
