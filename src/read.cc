@@ -3,6 +3,7 @@
 #include <istream>
 #include <map>
 #include <range/v3/all.hpp>
+#include <sstream>
 #include <string>
 #include <vector>
 
