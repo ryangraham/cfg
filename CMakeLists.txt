@@ -32,8 +32,8 @@ target_include_directories(
 )
 
 include_directories(include)
-add_executable(test src/test_main.cc)
-set_target_properties(test PROPERTIES
+add_executable(cfg_test src/test_main.cc)
+set_target_properties(cfg_test PROPERTIES
             CXX_STANDARD 17
             )
 
