@@ -24,16 +24,10 @@ inline char const* token_type_name(token_type const val) {
 
 struct token {
  public:
-  token(token_type type, const char* begin, const char* end)
-      : type{type}, value(begin, std::distance(begin, end)) {
-    type_str = token_type_name(type);
-  }
-  token(token_type type, const char* begin, int len)
-      : type{type}, value(begin, len) {
-    type_str = token_type_name(type);
-  }
+  token(token_type type, const char* begin, const char* end);
+  token(token_type type, const char* begin, int len);
 
-  bool is_identifier() { return type == token_type::IDENTIFIER; }
+  bool is_identifier();
 
   token_type type{};
   std::string_view type_str{};

@@ -3,7 +3,7 @@
 
 # CFG
 
-A header-only INI parser for C++.
+An INI parser library for C++.
 
 ## Table of Contents
 

@@ -8,10 +8,11 @@ include(GNUInstallDirs)
 include(FetchContent)
 
 include_directories(thirdparty)
+include_directories(include)
 
-add_library(${PROJECT_NAME} INTERFACE)
+add_library(${PROJECT_NAME} STATIC src/lexer.cc src/parser.cc src/read.cc src/token.cc src/write.cc)
 
-target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
 FetchContent_Declare(
     rangev3
@@ -32,7 +33,8 @@ target_include_directories(
 )
 
 include_directories(include)
-add_executable(cfg_test src/test_main.cc)
+file(GLOB src_files src/*.cc)
+add_executable(cfg_test ${src_files})
 set_target_properties(cfg_test PROPERTIES
             CXX_STANDARD 17
             )
