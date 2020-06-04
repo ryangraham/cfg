@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: ryangraham/cfg:0.0.1
+      - image: ryangraham/cfg:0.0.2
     steps:
       - checkout
       - run:

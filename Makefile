@@ -14,10 +14,10 @@ clean:
 	rm -rf ./build/* || true
 
 docker:
-	docker build -t ryangraham/cfg:0.0.1 .
+	docker build -t ryangraham/cfg:0.0.2 .
 
 push:
-	docker push ryangraham/cfg:0.0.1
+	docker push ryangraham/cfg:0.0.2
 
 example:
 	cd examples/print && $(MAKE) run
